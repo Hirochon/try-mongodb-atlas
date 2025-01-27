@@ -1,0 +1,24 @@
+services:
+  mongodb:
+    hostname: mongodb
+    image: mongodb/mongodb-atlas-local
+    environment:
+      - MONGODB_INITDB_ROOT_USERNAME=user
+      - MONGODB_INITDB_ROOT_PASSWORD=pass
+    ports:
+      - 27019:27017
+    volumes:
+      - data:/data/db
+      - config:/data/configdb
+  notebook:
+    image: jupyter/base-notebook:latest
+    ports:
+      - 8888:8888
+    volumes:
+      - ./notebook:/home/jovyan/work
+    environment:
+      GRANT_SUDO: "yes"
+    user: root
+volumes:
+  data:
+  config:
